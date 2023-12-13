@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b795bb58a79a499f97e64c5626c93931" Name="Diagram1">
+        <EntityTypeShape EntityType="ahorros_prestamosModel.Fiadores" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ahorros_prestamosModel.inversiones" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ahorros_prestamosModel.Inversionistas" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ahorros_prestamosModel.Prestamos" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ahorros_prestamosModel.Prestatarios" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="ahorros_prestamosModel.FK__Fiadores__ID_Pre__45F365D3" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ahorros_prestamosModel.clientes" Width="1.5" PointX="0.75" PointY="6.625" />
+        <AssociationConnector Association="ahorros_prestamosModel.FK__Fiadores__id_cli__4222D4EF" />
+        <AssociationConnector Association="ahorros_prestamosModel.FK__Inversion__id_cl__3C69FB99" />
+        <AssociationConnector Association="ahorros_prestamosModel.FK__Prestatar__id_cl__3F466844" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

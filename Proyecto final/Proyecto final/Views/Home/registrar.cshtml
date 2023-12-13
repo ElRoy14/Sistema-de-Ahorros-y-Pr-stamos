@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "registrar";
+    Layout = "~/Views/Shared/_LayoutRegistrar.cshtml";
+}
+
+<body>
+    <section class="form-register">
+        <h4>Formulario Registro</h4>
+        <input class="controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Cedula">
+        <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Nombre">
+        <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido">
+        <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su contraseña">
+        <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Dirrecion">
+        <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su telefono">
+        <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Tipo de usuario">
+        <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
+        <button class="botons"> @Html.ActionLink("Entrar", "casos", "Home")</button>
+        <p><a> @Html.ActionLink("Ya tengo cuenta?", "Login", "Home")</a></p>
+    </section>
+</body>

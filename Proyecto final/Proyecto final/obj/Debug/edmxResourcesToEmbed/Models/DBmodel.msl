@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ahorros_prestamosModelStoreContainer" CdmEntityContainer="ahorros_prestamosEntities">
+    <EntitySetMapping Name="Fiadores">
+      <EntityTypeMapping TypeName="ahorros_prestamosModel.Fiadores">
+        <MappingFragment StoreEntitySet="Fiadores">
+          <ScalarProperty Name="ID_Fiador" ColumnName="ID_Fiador" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+          <ScalarProperty Name="ID_Prestatario" ColumnName="ID_Prestatario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="inversiones">
+      <EntityTypeMapping TypeName="ahorros_prestamosModel.inversiones">
+        <MappingFragment StoreEntitySet="inversiones">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="tipo_inversion" ColumnName="tipo_inversion" />
+          <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+          <ScalarProperty Name="fecha_termino" ColumnName="fecha_termino" />
+          <ScalarProperty Name="monto_invertido" ColumnName="monto_invertido" />
+          <ScalarProperty Name="tasa_interes" ColumnName="tasa_interes" />
+          <ScalarProperty Name="id_garanatia" ColumnName="id_garanatia" />
+          <ScalarProperty Name="id_comprobante" ColumnName="id_comprobante" />
+          <ScalarProperty Name="tipo_pago" ColumnName="tipo_pago" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inversionistas">
+      <EntityTypeMapping TypeName="ahorros_prestamosModel.Inversionistas">
+        <MappingFragment StoreEntitySet="Inversionistas">
+          <ScalarProperty Name="ID_Inversionista" ColumnName="ID_Inversionista" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+          <ScalarProperty Name="Monto_Invertido" ColumnName="Monto_Invertido" />
+          <ScalarProperty Name="Tasa_Interes" ColumnName="Tasa_Interes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prestamos">
+      <EntityTypeMapping TypeName="ahorros_prestamosModel.Prestamos">
+        <MappingFragment StoreEntitySet="Prestamos">
+          <ScalarProperty Name="codigo_prestamo" ColumnName="codigo_prestamo" />
+          <ScalarProperty Name="fecha_solicitud" ColumnName="fecha_solicitud" />
+          <ScalarProperty Name="fecha_aprobacion" ColumnName="fecha_aprobacion" />
+          <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+          <ScalarProperty Name="fecha_termino" ColumnName="fecha_termino" />
+          <ScalarProperty Name="monto_prestamo" ColumnName="monto_prestamo" />
+          <ScalarProperty Name="tasa_interes" ColumnName="tasa_interes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prestatarios">
+      <EntityTypeMapping TypeName="ahorros_prestamosModel.Prestatarios">
+        <MappingFragment StoreEntitySet="Prestatarios">
+          <ScalarProperty Name="ID_Prestatario" ColumnName="ID_Prestatario" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+          <ScalarProperty Name="Monto_Prestado" ColumnName="Monto_Prestado" />
+          <ScalarProperty Name="Tasa_Interes" ColumnName="Tasa_Interes" />
+          <ScalarProperty Name="Fecha_Solicitud" ColumnName="Fecha_Solicitud" />
+          <ScalarProperty Name="Fecha_Aprobacion" ColumnName="Fecha_Aprobacion" />
+          <ScalarProperty Name="Fecha_Inicio" ColumnName="Fecha_Inicio" />
+          <ScalarProperty Name="Fecha_Termino" ColumnName="Fecha_Termino" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clientes">
+      <EntityTypeMapping TypeName="ahorros_prestamosModel.clientes">
+        <MappingFragment StoreEntitySet="clientes">
+          <ScalarProperty Name="tipo_cliente" ColumnName="tipo_cliente" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="nombres" ColumnName="nombres" />
+          <ScalarProperty Name="num_cedula" ColumnName="num_cedula" />
+          <ScalarProperty Name="tipo_usuario" ColumnName="tipo_usuario" />
+          <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+          <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

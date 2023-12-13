@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ahorros_prestamosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_usuario" Type="varchar" MaxLength="50" />
+          <Property Name="contraseña" Type="varchar" MaxLength="25" />
+          <Property Name="tipo_usuario" Type="varchar" MaxLength="50" />
+          <Property Name="num_cedula" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="tipo_cliente" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fiadores">
+          <Key>
+            <PropertyRef Name="ID_Fiador" />
+          </Key>
+          <Property Name="ID_Fiador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_cliente" Type="int" />
+          <Property Name="ID_Prestatario" Type="int" />
+        </EntityType>
+        <EntityType Name="inversiones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo_inversion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fecha_inicio" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="fecha_termino" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="monto_invertido" Type="int" Nullable="false" />
+          <Property Name="tasa_interes" Type="int" Nullable="false" />
+          <Property Name="id_garanatia" Type="int" Nullable="false" />
+          <Property Name="id_comprobante" Type="int" Nullable="false" />
+          <Property Name="tipo_pago" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inversionistas">
+          <Key>
+            <PropertyRef Name="ID_Inversionista" />
+          </Key>
+          <Property Name="ID_Inversionista" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_cliente" Type="int" />
+          <Property Name="Monto_Invertido" Type="int" />
+          <Property Name="Tasa_Interes" Type="int" />
+        </EntityType>
+        <EntityType Name="Prestamos">
+          <Key>
+            <PropertyRef Name="codigo_prestamo" />
+          </Key>
+          <Property Name="codigo_prestamo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_solicitud" Type="varchar" MaxLength="1" />
+          <Property Name="fecha_aprobacion" Type="varchar" MaxLength="1" />
+          <Property Name="fecha_inicio" Type="varchar" MaxLength="1" />
+          <Property Name="fecha_termino" Type="varchar" MaxLength="1" />
+          <Property Name="monto_prestamo" Type="int" />
+          <Property Name="tasa_interes" Type="int" />
+        </EntityType>
+        <EntityType Name="Prestatarios">
+          <Key>
+            <PropertyRef Name="ID_Prestatario" />
+          </Key>
+          <Property Name="ID_Prestatario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_cliente" Type="int" />
+          <Property Name="Monto_Prestado" Type="int" />
+          <Property Name="Tasa_Interes" Type="int" />
+          <Property Name="Fecha_Solicitud" Type="varchar" MaxLength="1" />
+          <Property Name="Fecha_Aprobacion" Type="varchar" MaxLength="1" />
+          <Property Name="Fecha_Inicio" Type="varchar" MaxLength="1" />
+          <Property Name="Fecha_Termino" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK__Fiadores__id_cli__4222D4EF">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="Fiadores" Type="Self.Fiadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Fiadores">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fiadores__ID_Pre__4316F928">
+          <End Role="Prestatarios" Type="Self.Prestatarios" Multiplicity="0..1" />
+          <End Role="Fiadores" Type="Self.Fiadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prestatarios">
+              <PropertyRef Name="ID_Prestatario" />
+            </Principal>
+            <Dependent Role="Fiadores">
+              <PropertyRef Name="ID_Prestatario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inversion__id_cl__3C69FB99">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="Inversionistas" Type="Self.Inversionistas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Inversionistas">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prestatar__id_cl__3F466844">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="Prestatarios" Type="Self.Prestatarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Prestatarios">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ahorros_prestamosModelStoreContainer">
+          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fiadores" EntityType="Self.Fiadores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inversiones" EntityType="Self.inversiones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inversionistas" EntityType="Self.Inversionistas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prestamos" EntityType="Self.Prestamos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prestatarios" EntityType="Self.Prestatarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Fiadores__id_cli__4222D4EF" Association="Self.FK__Fiadores__id_cli__4222D4EF">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="Fiadores" EntitySet="Fiadores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fiadores__ID_Pre__4316F928" Association="Self.FK__Fiadores__ID_Pre__4316F928">
+            <End Role="Prestatarios" EntitySet="Prestatarios" />
+            <End Role="Fiadores" EntitySet="Fiadores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inversion__id_cl__3C69FB99" Association="Self.FK__Inversion__id_cl__3C69FB99">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="Inversionistas" EntitySet="Inversionistas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prestatar__id_cl__3F466844" Association="Self.FK__Prestatar__id_cl__3F466844">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="Prestatarios" EntitySet="Prestatarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ahorros_prestamosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Fiadores">
+          <Key>
+            <PropertyRef Name="ID_Fiador" />
+          </Key>
+          <Property Name="ID_Fiador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_cliente" Type="Int32" />
+          <Property Name="ID_Prestatario" Type="Int32" />
+          <NavigationProperty Name="Prestatarios" Relationship="Self.FK__Fiadores__ID_Pre__45F365D3" FromRole="Fiadores" ToRole="Prestatarios" />
+          <NavigationProperty Name="clientes" Relationship="ahorros_prestamosModel.FK__Fiadores__id_cli__4222D4EF" FromRole="Fiadores" ToRole="clientes" />
+        </EntityType>
+        <EntityType Name="inversiones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo_inversion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_inicio" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_termino" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="monto_invertido" Type="Int32" Nullable="false" />
+          <Property Name="tasa_interes" Type="Int32" Nullable="false" />
+          <Property Name="id_garanatia" Type="Int32" Nullable="false" />
+          <Property Name="id_comprobante" Type="Int32" Nullable="false" />
+          <Property Name="tipo_pago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inversionistas">
+          <Key>
+            <PropertyRef Name="ID_Inversionista" />
+          </Key>
+          <Property Name="ID_Inversionista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_cliente" Type="Int32" />
+          <Property Name="Monto_Invertido" Type="Int32" />
+          <Property Name="Tasa_Interes" Type="Int32" />
+          <NavigationProperty Name="clientes" Relationship="ahorros_prestamosModel.FK__Inversion__id_cl__3C69FB99" FromRole="Inversionistas" ToRole="clientes" />
+        </EntityType>
+        <EntityType Name="Prestamos">
+          <Key>
+            <PropertyRef Name="codigo_prestamo" />
+          </Key>
+          <Property Name="codigo_prestamo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_solicitud" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_aprobacion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_inicio" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_termino" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="monto_prestamo" Type="Int32" />
+          <Property Name="tasa_interes" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Prestatarios">
+          <Key>
+            <PropertyRef Name="ID_Prestatario" />
+          </Key>
+          <Property Name="ID_Prestatario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_cliente" Type="Int32" />
+          <Property Name="Monto_Prestado" Type="Int32" />
+          <Property Name="Tasa_Interes" Type="Int32" />
+          <Property Name="Fecha_Solicitud" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_Aprobacion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_Inicio" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_Termino" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Fiadores" Relationship="Self.FK__Fiadores__ID_Pre__45F365D3" FromRole="Prestatarios" ToRole="Fiadores" />
+          <NavigationProperty Name="clientes" Relationship="ahorros_prestamosModel.FK__Prestatar__id_cl__3F466844" FromRole="Prestatarios" ToRole="clientes" />
+        </EntityType>
+        <Association Name="FK__Fiadores__ID_Pre__45F365D3">
+          <End Role="Prestatarios" Type="Self.Prestatarios" Multiplicity="0..1" />
+          <End Role="Fiadores" Type="Self.Fiadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prestatarios">
+              <PropertyRef Name="ID_Prestatario" />
+            </Principal>
+            <Dependent Role="Fiadores">
+              <PropertyRef Name="ID_Prestatario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ahorros_prestamosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Fiadores" EntityType="Self.Fiadores" />
+          <EntitySet Name="inversiones" EntityType="Self.inversiones" />
+          <EntitySet Name="Inversionistas" EntityType="Self.Inversionistas" />
+          <EntitySet Name="Prestamos" EntityType="Self.Prestamos" />
+          <EntitySet Name="Prestatarios" EntityType="Self.Prestatarios" />
+          <AssociationSet Name="FK__Fiadores__ID_Pre__45F365D3" Association="Self.FK__Fiadores__ID_Pre__45F365D3">
+            <End Role="Prestatarios" EntitySet="Prestatarios" />
+            <End Role="Fiadores" EntitySet="Fiadores" />
+          </AssociationSet>
+          <EntitySet Name="clientes" EntityType="ahorros_prestamosModel.clientes" />
+          <AssociationSet Name="FK__Fiadores__id_cli__4222D4EF" Association="ahorros_prestamosModel.FK__Fiadores__id_cli__4222D4EF">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="Fiadores" EntitySet="Fiadores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inversion__id_cl__3C69FB99" Association="ahorros_prestamosModel.FK__Inversion__id_cl__3C69FB99">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="Inversionistas" EntitySet="Inversionistas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prestatar__id_cl__3F466844" Association="ahorros_prestamosModel.FK__Prestatar__id_cl__3F466844">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="Prestatarios" EntitySet="Prestatarios" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="contraseña" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="num_cedula" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nombres" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_cliente" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Fiadores" Relationship="ahorros_prestamosModel.FK__Fiadores__id_cli__4222D4EF" FromRole="clientes" ToRole="Fiadores" />
+          <NavigationProperty Name="Inversionistas" Relationship="ahorros_prestamosModel.FK__Inversion__id_cl__3C69FB99" FromRole="clientes" ToRole="Inversionistas" />
+          <NavigationProperty Name="Prestatarios" Relationship="ahorros_prestamosModel.FK__Prestatar__id_cl__3F466844" FromRole="clientes" ToRole="Prestatarios" />
+        </EntityType>
+        <Association Name="FK__Fiadores__id_cli__4222D4EF">
+          <End Type="ahorros_prestamosModel.clientes" Role="clientes" Multiplicity="0..1" />
+          <End Type="ahorros_prestamosModel.Fiadores" Role="Fiadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Fiadores">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inversion__id_cl__3C69FB99">
+          <End Type="ahorros_prestamosModel.clientes" Role="clientes" Multiplicity="0..1" />
+          <End Type="ahorros_prestamosModel.Inversionistas" Role="Inversionistas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Inversionistas">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prestatar__id_cl__3F466844">
+          <End Type="ahorros_prestamosModel.clientes" Role="clientes" Multiplicity="0..1" />
+          <End Type="ahorros_prestamosModel.Prestatarios" Role="Prestatarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Prestatarios">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ahorros_prestamosModelStoreContainer" CdmEntityContainer="ahorros_prestamosEntities">
+          <EntitySetMapping Name="Fiadores">
+            <EntityTypeMapping TypeName="ahorros_prestamosModel.Fiadores">
+              <MappingFragment StoreEntitySet="Fiadores">
+                <ScalarProperty Name="ID_Fiador" ColumnName="ID_Fiador" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="ID_Prestatario" ColumnName="ID_Prestatario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inversiones">
+            <EntityTypeMapping TypeName="ahorros_prestamosModel.inversiones">
+              <MappingFragment StoreEntitySet="inversiones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipo_inversion" ColumnName="tipo_inversion" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="fecha_termino" ColumnName="fecha_termino" />
+                <ScalarProperty Name="monto_invertido" ColumnName="monto_invertido" />
+                <ScalarProperty Name="tasa_interes" ColumnName="tasa_interes" />
+                <ScalarProperty Name="id_garanatia" ColumnName="id_garanatia" />
+                <ScalarProperty Name="id_comprobante" ColumnName="id_comprobante" />
+                <ScalarProperty Name="tipo_pago" ColumnName="tipo_pago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inversionistas">
+            <EntityTypeMapping TypeName="ahorros_prestamosModel.Inversionistas">
+              <MappingFragment StoreEntitySet="Inversionistas">
+                <ScalarProperty Name="ID_Inversionista" ColumnName="ID_Inversionista" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="Monto_Invertido" ColumnName="Monto_Invertido" />
+                <ScalarProperty Name="Tasa_Interes" ColumnName="Tasa_Interes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prestamos">
+            <EntityTypeMapping TypeName="ahorros_prestamosModel.Prestamos">
+              <MappingFragment StoreEntitySet="Prestamos">
+                <ScalarProperty Name="codigo_prestamo" ColumnName="codigo_prestamo" />
+                <ScalarProperty Name="fecha_solicitud" ColumnName="fecha_solicitud" />
+                <ScalarProperty Name="fecha_aprobacion" ColumnName="fecha_aprobacion" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="fecha_termino" ColumnName="fecha_termino" />
+                <ScalarProperty Name="monto_prestamo" ColumnName="monto_prestamo" />
+                <ScalarProperty Name="tasa_interes" ColumnName="tasa_interes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prestatarios">
+            <EntityTypeMapping TypeName="ahorros_prestamosModel.Prestatarios">
+              <MappingFragment StoreEntitySet="Prestatarios">
+                <ScalarProperty Name="ID_Prestatario" ColumnName="ID_Prestatario" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="Monto_Prestado" ColumnName="Monto_Prestado" />
+                <ScalarProperty Name="Tasa_Interes" ColumnName="Tasa_Interes" />
+                <ScalarProperty Name="Fecha_Solicitud" ColumnName="Fecha_Solicitud" />
+                <ScalarProperty Name="Fecha_Aprobacion" ColumnName="Fecha_Aprobacion" />
+                <ScalarProperty Name="Fecha_Inicio" ColumnName="Fecha_Inicio" />
+                <ScalarProperty Name="Fecha_Termino" ColumnName="Fecha_Termino" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="ahorros_prestamosModel.clientes">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="tipo_cliente" ColumnName="tipo_cliente" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="num_cedula" ColumnName="num_cedula" />
+                <ScalarProperty Name="tipo_usuario" ColumnName="tipo_usuario" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

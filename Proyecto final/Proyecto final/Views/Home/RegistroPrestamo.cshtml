@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "RegistroPrestamo";
+    Layout = "~/Views/Shared/_LayoutPrestamo.cshtml";
+}
+
+
+
+<div class="formulario">
+
+    <h2>RegistroPrestamo</h2>
+    <form method="post">
+        <h1>Por favor complete el formulario de su prestamo</h1>
+        <p>Ingrese el monto de prestamo que desea Tomar</p>
+        <input type="number" id="Monto_Prestamo" name="Monto_Prestamo" min="10000" max="1000000" />
+        <br />
+        <p>Ingrese el número de cuotas que desee</p>
+        <input type="radio" name="cuotas" id="1" value="1" /><label>1</label>
+        <br />
+        <input type="radio" name="cuotas" id="4" value="4" /><label>4</label>
+        <br />
+        <input type="radio" name="cuotas" id="12" value="12" /><label>12</label>
+        <br />
+        <input type="radio" name="cuotas" id="24" value="24" /><label>24</label>
+        <br />
+        <input type="radio" name="cuotas" id="48" value="48" /><label>48</label>
+        <br>
+        <button type="button" id="btnPrestamo">Tomar préstamo</button>
+    </form>
+</div>
+@section scripts
+{
+    <!--Librería para estilos-->
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css' rel='stylesheet' />
+
+    <!--Scripts-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js'></script>
+
+    <script>$(document).ready(function () {
+            $('#btnPrestamo').click(function () {
+                var monto = parseInt($('#Monto_Prestamo').val());
+                var cuotas = parseInt($('input[name="cuotas"]:checked').val());
+                var cuota = monto / cuotas;
+
+                var fechaInicio = moment().date(15);
+                var fechaFin = moment(fechaInicio).add(cuotas, 'M');
+
+                var eventos = [];
+                for (var fecha = moment(fechaInicio); fecha.isBefore(fechaFin); fecha.add(1, 'M')) {
+                    eventos.push({
+                        title: 'Pago de cuota (' + (fecha.diff(fechaInicio, 'months') + 1) + '/' + cuotas + '): $' + cuota.toFixed(2),
+                        start: fecha.date(15).format('YYYY-MM-DD'),
+                        color: '#378006'
+                    });
+                }
+
+                $('#calendar').fullCalendar('removeEvents');
+                $('#calendar').fullCalendar('addEventSource', eventos);
+            });
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev next today',
+                    center: 'title',
+                    right: 'month, basicWeek, basicDay'
+                },
+                defaultView: 'month',
+                events: [
+                    {
+                        title: 'Event 1',
+                        start: '2023-04-01',
+                        color: '#378006'
+                    }
+                ]
+            });
+        });</script>
+
+    <div id="calendar"></div>
+
+
+}

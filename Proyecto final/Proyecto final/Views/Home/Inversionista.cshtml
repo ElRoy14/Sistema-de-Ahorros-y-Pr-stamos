@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Calendario Inversiones";
+    Layout = "~/Views/Shared/_LayoutInversionista.cshtml";
+}
+
+<meta charset="UTF-16">
+
+<Form action="Inversionista" method="post" enctype="multipart/form-data">
+
+    <h1 class="logo">Cronograma <span>Inversiones</span></h1>
+
+    <div class="form_wrapper">
+
+        <label class="montoL">Inversión</label>
+
+        <input type="text" id="montoI" name="monto" class="form-control" />
+
+        <label>Fecha Inicio</label> <input type="date" id="fechaI" name="fechaInicio" class="form-control" />
+        <label>Fecha Termino</label> <input type="date" id="fechaT" name="fechaTermino" class="form-control" />
+
+        <label class="tasal">Tasas de Interes</label>
+        <br>
+        <select id="tasa" name="tasasI" class="droplist">
+            <option type="number" id="tasaI" value="5">5%</option>
+        </select>
+
+        <select id="tipoP" name="psgo" class="droplist">
+            <option type="text" id="tipoPago" value="transferencia">Transferencia</option>
+        </select>
+
+        <button type="button" id="btnInversion">Invertir</button>
+
+    </div>
+
+</Form>
+
+<div id="calendar"></div>
+@section scripts
+{
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+    <script>$(document).ready(function () {
+            $('#btnInversion').click(function () {
+
+                var montoInversion = parseInt($('#montoI').val());
+                var fechaInicio = $('#fechaI').val();
+                var fechaTermino = $('#fechaT').val();
+                var tasa = $('#tasaI').val();
+                var tipoPago = $('#tipoPago').val();
+
+                //Formateando la fecha par que la funcion la acepte
+
+                var DateI = new Date(fechaInicio);
+
+                var dia = DateI.getDate();
+                var mes = DateI.getMonth() + 1;
+                var anio = DateI.getFullYear();
+
+                //Se le suma un dos al dia porque por algun motivo sale con dos dias menos
+                var dateI = anio + '-' + mes + '-' + (dia + 2);
+
+                //Formateando la fecha par que la funcion la acepte
+
+                var DateT = new Date(fechaTermino);
+
+                var dia1 = DateT.getDate();
+                var mes1 = DateT.getMonth() + 1;
+                var anio1 = DateT.getFullYear();
+
+                //Se le suma un dos al dia porque por algun motivo sale con dos dias menos
+                var dateT = anio1 + '-' + mes1 + '-' + (dia1 + 2);
+
+                var plazo = DateT.getFullYear() - DateI.getFullYear();
+
+                var montoPago = calcularRentabilidad(montoInversion, tasa, plazo);
+
+                console.log(plazo);
+
+                function calcularRentabilidad(montoInv, tasaInt, plazo) {
+
+                    var montoMensual = (montoInv)*(tasaInt / 100 / 12)*((plazo * 12) / 12);
+
+                    return montoMensual + montoInv;
+
+                }
+
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev next today',
+                        center: 'title',
+                        right: 'month, basicWeek, basicDay'
+                    },
+                    defaultView: 'month',
+                    events: [
+                        {
+                            title: 'Monto Invertido ' + montoInversion,
+                            start: dateI,
+                            color: '#808080'
+                        },
+                        {
+                            title: 'Total a pagar ' + montoPago,
+                            start: dateT,
+                            color: '#7FFF00'
+                        }
+                    ],
+                    eventRender: function (event, element) {
+                        element.find('.fc-title').append('<br/>Tipo de Pago ' + tipoPago);
+                    }
+                });
+
+            });
+
+        });</script>
+
+}

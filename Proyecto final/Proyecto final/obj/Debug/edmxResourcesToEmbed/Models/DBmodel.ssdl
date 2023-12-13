@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ahorros_prestamosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="clientes">
+    <Key>
+      <PropertyRef Name="id_cliente" />
+    </Key>
+    <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre_usuario" Type="varchar" MaxLength="50" />
+    <Property Name="contraseña" Type="varchar" MaxLength="25" />
+    <Property Name="tipo_usuario" Type="varchar" MaxLength="50" />
+    <Property Name="num_cedula" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="nombres" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="direccion" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="telefono" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="tipo_cliente" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fiadores">
+    <Key>
+      <PropertyRef Name="ID_Fiador" />
+    </Key>
+    <Property Name="ID_Fiador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_cliente" Type="int" />
+    <Property Name="ID_Prestatario" Type="int" />
+  </EntityType>
+  <EntityType Name="inversiones">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tipo_inversion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fecha_inicio" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="fecha_termino" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="monto_invertido" Type="int" Nullable="false" />
+    <Property Name="tasa_interes" Type="int" Nullable="false" />
+    <Property Name="id_garanatia" Type="int" Nullable="false" />
+    <Property Name="id_comprobante" Type="int" Nullable="false" />
+    <Property Name="tipo_pago" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Inversionistas">
+    <Key>
+      <PropertyRef Name="ID_Inversionista" />
+    </Key>
+    <Property Name="ID_Inversionista" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_cliente" Type="int" />
+    <Property Name="Monto_Invertido" Type="int" />
+    <Property Name="Tasa_Interes" Type="int" />
+  </EntityType>
+  <EntityType Name="Prestamos">
+    <Key>
+      <PropertyRef Name="codigo_prestamo" />
+    </Key>
+    <Property Name="codigo_prestamo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fecha_solicitud" Type="varchar" MaxLength="1" />
+    <Property Name="fecha_aprobacion" Type="varchar" MaxLength="1" />
+    <Property Name="fecha_inicio" Type="varchar" MaxLength="1" />
+    <Property Name="fecha_termino" Type="varchar" MaxLength="1" />
+    <Property Name="monto_prestamo" Type="int" />
+    <Property Name="tasa_interes" Type="int" />
+  </EntityType>
+  <EntityType Name="Prestatarios">
+    <Key>
+      <PropertyRef Name="ID_Prestatario" />
+    </Key>
+    <Property Name="ID_Prestatario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_cliente" Type="int" />
+    <Property Name="Monto_Prestado" Type="int" />
+    <Property Name="Tasa_Interes" Type="int" />
+    <Property Name="Fecha_Solicitud" Type="varchar" MaxLength="1" />
+    <Property Name="Fecha_Aprobacion" Type="varchar" MaxLength="1" />
+    <Property Name="Fecha_Inicio" Type="varchar" MaxLength="1" />
+    <Property Name="Fecha_Termino" Type="varchar" MaxLength="1" />
+  </EntityType>
+  <Association Name="FK__Fiadores__id_cli__4222D4EF">
+    <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+    <End Role="Fiadores" Type="Self.Fiadores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes">
+        <PropertyRef Name="id_cliente" />
+      </Principal>
+      <Dependent Role="Fiadores">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Fiadores__ID_Pre__4316F928">
+    <End Role="Prestatarios" Type="Self.Prestatarios" Multiplicity="0..1" />
+    <End Role="Fiadores" Type="Self.Fiadores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prestatarios">
+        <PropertyRef Name="ID_Prestatario" />
+      </Principal>
+      <Dependent Role="Fiadores">
+        <PropertyRef Name="ID_Prestatario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Inversion__id_cl__3C69FB99">
+    <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+    <End Role="Inversionistas" Type="Self.Inversionistas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes">
+        <PropertyRef Name="id_cliente" />
+      </Principal>
+      <Dependent Role="Inversionistas">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Prestatar__id_cl__3F466844">
+    <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+    <End Role="Prestatarios" Type="Self.Prestatarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes">
+        <PropertyRef Name="id_cliente" />
+      </Principal>
+      <Dependent Role="Prestatarios">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ahorros_prestamosModelStoreContainer">
+    <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Fiadores" EntityType="Self.Fiadores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="inversiones" EntityType="Self.inversiones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Inversionistas" EntityType="Self.Inversionistas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prestamos" EntityType="Self.Prestamos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prestatarios" EntityType="Self.Prestatarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Fiadores__id_cli__4222D4EF" Association="Self.FK__Fiadores__id_cli__4222D4EF">
+      <End Role="clientes" EntitySet="clientes" />
+      <End Role="Fiadores" EntitySet="Fiadores" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Fiadores__ID_Pre__4316F928" Association="Self.FK__Fiadores__ID_Pre__4316F928">
+      <End Role="Prestatarios" EntitySet="Prestatarios" />
+      <End Role="Fiadores" EntitySet="Fiadores" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Inversion__id_cl__3C69FB99" Association="Self.FK__Inversion__id_cl__3C69FB99">
+      <End Role="clientes" EntitySet="clientes" />
+      <End Role="Inversionistas" EntitySet="Inversionistas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Prestatar__id_cl__3F466844" Association="Self.FK__Prestatar__id_cl__3F466844">
+      <End Role="clientes" EntitySet="clientes" />
+      <End Role="Prestatarios" EntitySet="Prestatarios" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
